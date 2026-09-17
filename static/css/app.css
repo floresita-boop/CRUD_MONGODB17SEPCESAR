@@ -1,0 +1,42 @@
+/* ==========================================
+   ESTILOS GENERALES Y FUENTES
+   ========================================== */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333333;
+}
+
+/* ==========================================
+   ESTILOS PARA TABLAS
+   ========================================== */
+table.table {
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table.table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* ==========================================
+   IMÁGENES Y PREVISUALIZACIONES
+   ========================================== */
+td img, .container img {
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+}
+
+/* ==========================================
+   ICONOS DE ACCIÓN
+   ========================================== */
+td i {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+td i:hover {
+    transform: scale(1.2);
+}

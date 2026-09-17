@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Agregar Producto</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ESTILOS VISUALES -->
+    <style>
+
+        body {
+            background: linear-gradient(135deg, #fdf2f8, #f3e8ff);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        h2 {
+            color: #3b0764;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        form {
+            background: white !important;
+            border: none !important;
+            border-radius: 20px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+            overflow: hidden;
+        }
+
+        form > .bg-danger {
+            background: linear-gradient(135deg, #7e22ce, #be185d) !important;
+            padding: 18px !important;
+            border-radius: 12px !important;
+        }
+
+        form > .bg-danger h4 {
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .form-label {
+            color: #4c1d95;
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 2px solid #e9d5ff;
+            border-radius: 10px;
+            padding: 11px;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 0.2rem rgba(168, 85, 247, 0.15);
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        input[type="file"] {
+            background-color: #faf5ff;
+            cursor: pointer;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn[style*="#9b59b6"] {
+            background: linear-gradient(135deg, #7e22ce, #a21caf) !important;
+            border: none !important;
+        }
+
+        .btn[style*="#9b59b6"]:hover {
+            background: linear-gradient(135deg, #6b21a8, #86198f) !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #f5d0fe;
+            border: none;
+            color: #581c87 !important;
+        }
+
+        .btn-danger:hover {
+            background: #e879f9;
+            transform: translateY(-2px);
+        }
+
+        .alert-danger {
+            border-radius: 10px;
+        }
+
+        .is-valid {
+            border-color: #22c55e !important;
+        }
+
+        .is-invalid {
+            border-color: #ef4444 !important;
+        }
+
+        /* Decoración de tienda de ropa */
+        body::before {
+            content: "👗  FASHION STORE  👕";
+            display: block;
+            text-align: center;
+            padding-top: 25px;
+            color: #7e22ce;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container mt-4 mb-5">
+
+    <h2 class="text-center mb-4" style="font-weight: bold;">
+        GESTIÓN PRODUCTOS
+    </h2>
+
+    <!-- Agregamos un ID al formulario para controlarlo -->
+    <form id="formAgregar"
+          action="/agregarProducto"
+          method="POST"
+          enctype="multipart/form-data"
+          class="col-md-6 offset-md-3 p-4 border rounded bg-light shadow-sm needs-validation"
+          novalidate>
+
+        <!-- Caja roja superior -->
+        <div class="bg-danger text-white text-center py-2 mb-3 rounded">
+            <h4 class="m-0">AGREGAR PRODUCTO</h4>
+        </div>
+
+        {% if mensaje %}
+            <div class="alert alert-danger" role="alert">
+                {{ mensaje }}
+            </div>
+        {% endif %}
+
+        <!-- Campos sin 'is-valid' estático, el script los activará al escribir -->
+        <div class="mb-3">
+            <label class="form-label">Código:</label>
+            <input type="number"
+                   name="txtCodigo"
+                   class="form-control"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text"
+                   name="txtNombre"
+                   class="form-control"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Precio:</label>
+            <input type="number"
+                   name="txtPrecio"
+                   class="form-control"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoría:</label>
+
+            <select name="cbCategoria"
+                    class="form-control"
+                    required>
+
+                <option value="ROPA">ROPA</option>
+                <option value="ELECTRODOMESTICO">ELECTRODOMESTICO</option>
+                <option value="OTROS">OTROS</option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Seleccione Foto (jpg):
+            </label>
+
+            <input type="file"
+                   name="fileFoto"
+                   class="form-control"
+                   required>
+        </div>
+
+        <div class="d-flex justify-content-between">
+
+            <button type="submit"
+                    class="btn text-white px-4"
+                    style="background-color: #9b59b6;">
+                Agregar
+            </button>
+
+            <a href="/"
+               class="btn btn-danger text-white px-4">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- Script de JavaScript para activar los chulitos dinámicamente al escribir -->
+<script>
+
+    const inputs = document.querySelectorAll('input, select');
+
+    inputs.forEach(input => {
+
+        input.addEventListener('input', () => {
+
+            if (input.checkValidity()) {
+                input.classList.add('is-valid');
+                input.classList.remove('is-invalid');
+            } else {
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+
+        });
+
+        // Para los selectores y archivos que cambian de golpe
+        input.addEventListener('change', () => {
+
+            if (input.checkValidity()) {
+                input.classList.add('is-valid');
+                input.classList.remove('is-invalid');
+            } else {
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
